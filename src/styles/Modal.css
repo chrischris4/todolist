@@ -1,0 +1,59 @@
+.modal {
+  z-index: 5;
+  transform: translateX(300%);
+  position: relative;
+  background-color: white;
+  width: 500px;
+  color: #11151d;
+  padding: 20px;
+  border: 8px solid #11151d;
+  border-radius: 20px;
+  transition: transform 0.4s ease-in-out;
+
+  h2 {
+    margin-top: 0;
+  }
+
+  p {
+    margin-top: 0;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  label {
+    margin-bottom: 10px;
+  }
+
+  input {
+    padding-left: 10px;
+    border: 2px solid;
+    height: 40px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+  }
+
+  button {
+    align-self: center;
+    margin: auto;
+  }
+}
+
+.showModal {
+  transform: translate(0%);
+}
+
+.modalContent {
+  display: flex;
+  flex-direction: column;
+}
+
+.modalClose {
+  cursor: pointer;
+  font-size: 30px;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}

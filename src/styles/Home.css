@@ -1,3 +1,63 @@
-.home h1 {
-  color: red;
+.home {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 80vh;
+}
+
+.homeOverlay {
+  border-radius: 20px;
+  top: 0;
+  width: 100%;
+  height: 80vh;
+  position: absolute;
+  background: linear-gradient(90deg, white 0%, rgba(255, 255, 255, 0)) 0%;
+}
+
+.homeImgContainer {
+  opacity: 0.8;
+  z-index: -1;
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  top: 10vh;
+  width: 95%;
+  height: 80vh;
+}
+
+.homeImg {
+  border-radius: 20px;
+  width: 100%;
+  object-fit: cover;
+}
+
+.homeAbout {
+  position: absolute;
+  left: 7.5%;
+  top: 35vh;
+  padding: 20px;
+  color: #11151d;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+
+  h2 {
+    font-size: 55px;
+    font-family: 'NormsBold', sans-serif;
+    margin-top: 10px;
+    margin-bottom: 20px;
+  }
+
+  h3 {
+    font-family: 'Norms', sans-serif;
+    font-size: 30px;
+    width: 70%;
+    margin: 0;
+    margin-bottom: 30px;
+  }
+}
+
+.homeBtns {
+  width: 100%;
+  display: flex;
 }
