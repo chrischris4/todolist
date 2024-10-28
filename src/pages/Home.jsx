@@ -5,6 +5,7 @@ function Home() {
   return (
     <div className="home">
       <h1>Todolist</h1>
+      <h2>lll</h2>
     </div>
   );
 }
