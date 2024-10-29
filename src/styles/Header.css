@@ -1,4 +1,5 @@
 .header {
+  z-index: 2;
   display: flex;
   justify-content: center;
   padding: 10px 0px;
@@ -7,17 +8,17 @@
   width: 100%;
 }
 
-.header ul {
-  list-style: none;
-  display: flex;
-}
-
-.header li {
-  margin-left: 20px;
-}
-
 .headerContent {
   display: flex;
   width: 90%;
   justify-content: space-between;
+}
+
+.headerUser {
+  display: flex;
+  align-items: center;
+
+  button {
+    margin-left: 20px;
+  }
 }

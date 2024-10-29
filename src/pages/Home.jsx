@@ -20,47 +20,49 @@ function Home() {
   return (
     <div className="home">
       <Header />
-      <div className={`modal ${showModal ? 'showModal' : ''}`}>
-        <span
-          className="material-symbols-rounded modalClose"
-          onClick={closeModal}
-        >
-          close
-        </span>
-        <div className="modalContent">
-          {modalType === 'signup' ? (
-            <>
-              <h2>Crée un compte</h2>
-              <form>
-                <label htmlFor="">Nom</label>
-                <input type="text" name="lastName" id="lastName" />
-                <label htmlFor="">Prénom</label>
-                <input type="text" name="firstName" id="firstName" />
-                <label htmlFor="">E-mail</label>
-                <input type="email" name="email" id="email" />
-                <label htmlFor="">Mot de passe</label>
-                <input type="password" name="password" id="password" />
-                <button>Continuer</button>
-              </form>
-            </>
-          ) : (
-            <>
-              <h2>Se connecter</h2>
-              <form>
-                <label htmlFor="">E-mail</label>
-                <input type="email" name="email" id="email" />
-                <label htmlFor="">Mot de passe</label>
-                <input type="password" name="password" id="password" />
-                <button>Se connecter</button>
-              </form>
-            </>
-          )}
+      <div className={`modalOverlay ${showModal ? 'showModal' : ''}`}>
+        <div className={`modal ${showModal ? 'showModal' : ''}`}>
+          <span
+            className="material-symbols-rounded modalClose"
+            onClick={closeModal}
+          >
+            close
+          </span>
+          <div className="modalContent">
+            {modalType === 'signup' ? (
+              <>
+                <h2>Crée un compte</h2>
+                <form>
+                  <label htmlFor="">Nom</label>
+                  <input type="text" name="lastName" id="lastName" />
+                  <label htmlFor="">Prénom</label>
+                  <input type="text" name="firstName" id="firstName" />
+                  <label htmlFor="">E-mail</label>
+                  <input type="email" name="email" id="email" />
+                  <label htmlFor="">Mot de passe</label>
+                  <input type="password" name="password" id="password" />
+                  <button>Continuer</button>
+                </form>
+              </>
+            ) : (
+              <>
+                <h2>Se connecter</h2>
+                <form>
+                  <label htmlFor="">E-mail</label>
+                  <input type="email" name="email" id="email" />
+                  <label htmlFor="">Mot de passe</label>
+                  <input type="password" name="password" id="password" />
+                  <button>Se connecter</button>
+                </form>
+              </>
+            )}
+          </div>
         </div>
       </div>
       <div className="homeImgContainer">
         <div className="homeOverlay"></div>
         <img
-          src="https://i.ibb.co/DLyDM81/agenda.jpg"
+          src="https://i.ibb.co/W00zZQY/todo.jpg"
           alt=""
           className="homeImg"
         />

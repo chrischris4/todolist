@@ -3,9 +3,43 @@
   background-color: black;
   color: white;
   border-radius: 20px;
+  box-sizing: border-box;
+  padding: 20px;
+  width: 40%;
 }
 
 .taskContent {
   display: flex;
   flex-direction: column;
+  position: relative;
+  width: 100%;
+
+  h2 {
+    margin: 0;
+  }
+}
+
+.taskCategory {
+  position: absolute;
+  margin: 0;
+  top: 0px;
+  right: 0px;
+}
+
+.taskDate {
+  border-top: 2px solid white;
+  padding-top: 10px;
+  display: flex;
+
+  p {
+    margin: 0;
+    margin-right: 20px;
+  }
+}
+
+.taskCreator {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  margin: 0;
 }
