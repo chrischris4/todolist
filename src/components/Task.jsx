@@ -1,20 +1,20 @@
 import '../styles/Task.css';
 import React from 'react';
 
-function Task() {
+function Task({ task }) {
+  const { name, description, category, priority, endTime, creator } = task;
+
   return (
     <div className="task">
       <div className="taskContent">
-        <h2>Nom</h2>
-        <p>Description</p>
-        <h3 className="taskCategory">Category</h3>
-        <h3 className="taskPriority">Priority</h3>
+        <h2>{name}</h2>
+        <p>{description}</p>
+        <h3 className="taskCategory">Catégorie : {category}</h3>
+        <h3 className="taskPriority">Priorité : {priority}</h3>
         <div className="taskDate">
-          <p>Fin le 10/10/10</p>
-          <p>mis a jour le 10/10/10</p>
-          <p>crée le 10/10/10</p>
+          <p>Fin le : {new Date(endTime).toLocaleDateString()}</p>
         </div>
-        <p className="taskCreator">Create by Name</p>
+        <p className="taskCreator">Créé par : {creator}</p>
       </div>
     </div>
   );

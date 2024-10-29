@@ -2,12 +2,52 @@ import Header from '../components/Header';
 import Task from '../components/Task';
 import '../styles/Dashboard.css';
 import '../styles/Modal.css';
-import React from 'react';
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { getUserName, createTask, getAllTask } from '../common';
 
 function Dashboard() {
   const [showModal, setShowModal] = useState(false);
   const [modalType, setModalType] = useState();
+  const [userInfo, setUserInfo] = useState({ firstName: '', lastName: '' });
+  const [taskData, setTaskData] = useState({
+    name: '',
+    description: '',
+    category: '',
+    status: 'En attente',
+    priority: 'Moyenne',
+    endTime: '',
+  });
+  const [tasks, setTasks] = useState([]);
+  const [message, setMessage] = useState('');
+
+  /////////USER FETCH//////////////////////////////////
+  useEffect(() => {
+    const fetchUserInfo = async () => {
+      const userData = await getUserName();
+      if (!userData.error) {
+        setUserInfo({
+          firstName: userData.firstName,
+          lastName: userData.lastName,
+        });
+      }
+    };
+    fetchUserInfo();
+  }, []);
+
+  /////////TASK FETCH//////////////////////////////////
+
+  useEffect(() => {
+    const fetchTasks = async () => {
+      const response = await getAllTask();
+      if (!response.error) {
+        setTasks(response.events.tasks || []);
+      } else {
+        console.error(response.message);
+      }
+    };
+
+    fetchTasks();
+  }, []);
 
   const openModal = (type) => {
     setModalType(type);
@@ -16,20 +56,52 @@ function Dashboard() {
 
   const closeModal = () => {
     setShowModal(false);
+    setTaskData({
+      name: '',
+      description: '',
+      category: '',
+      status: 'En attente',
+      priority: 'Moyenne',
+      endTime: '',
+    });
+    setMessage('');
   };
+
+  ///////////////////TASK FORM CREATE///////////////////////////////
+
+  const handleChange = (e) => {
+    setTaskData({ ...taskData, [e.target.name]: e.target.value });
+  };
+
+  const handleSelection = (type, value) => {
+    setTaskData({ ...taskData, [type]: value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const response = await createTask(taskData);
+    if (response.error) {
+      setMessage(`Erreur: ${response.message}`);
+    } else {
+      setMessage('Tâche créée avec succès!');
+      closeModal();
+    }
+  };
+
   return (
     <div className="dashboard">
-      <Header />
+      <Header firstName={userInfo.firstName} lastName={userInfo.lastName} />
       <div className="dashboardContent">
         <div className="dashboardTitle">
-          {' '}
           <h2>Retrouvez toutes vos tâches ici</h2>
           <button onClick={() => openModal('createTask')}>
-            Ajouter une tâche{' '}
+            Crée une tâche
           </button>
         </div>
         <div className="tasks">
-          <Task />
+          {tasks.map((task) => (
+            <Task key={task._id} task={task} />
+          ))}
         </div>
       </div>
 
@@ -45,45 +117,73 @@ function Dashboard() {
             {modalType === 'createTask' ? (
               <>
                 <h2>Crée une tâche</h2>
-                <form>
-                  <label htmlFor="">Nom</label>
-                  <input type="text" name="taskName" id="taskName" />
-                  <label htmlFor="">Description</label>
+                <form onSubmit={handleSubmit}>
+                  <label htmlFor="taskName">Nom</label>
                   <input
                     type="text"
-                    name="taskDescription"
-                    id="taskDescription"
+                    name="name"
+                    id="taskName"
+                    value={taskData.name}
+                    onChange={handleChange}
+                    required
                   />
-                  <label htmlFor="">Catégorie</label>
-                  <input type="" name="taskCategory" id="taskCategory" />
-                  <label htmlFor="">Statut</label>
-                  <input type="" name="taskStatut" id="taskStatut" />
-                  <label htmlFor="">Date de fin</label>
-                  <input type="" name="taskEndTime" id="taskEndTime" />
-                  <button>Continuer</button>
+                  <label htmlFor="taskDescription">Description</label>
+                  <textarea
+                    name="description"
+                    id="taskDescription"
+                    value={taskData.description}
+                    onChange={handleChange}
+                    required
+                  />
+                  <label htmlFor="taskCategory">Catégorie</label>
+                  <input
+                    type="text"
+                    name="category"
+                    id="taskCategory"
+                    value={taskData.category}
+                    onChange={handleChange}
+                  />
+
+                  <label>Statut</label>
+                  <div className="taskStatusOptions">
+                    {['En attente', 'En cours', 'Fini'].map((status) => (
+                      <div
+                        key={status}
+                        className={`taskStatus ${taskData.status === status ? 'selected' : ''}`}
+                        onClick={() => handleSelection('status', status)}
+                      >
+                        {status}
+                      </div>
+                    ))}
+                  </div>
+
+                  <label>Priorité</label>
+                  <div className="taskPriorityOptions">
+                    {['Basse', 'Moyenne', 'Haute'].map((priority) => (
+                      <div
+                        key={priority}
+                        className={`taskPriority ${taskData.priority === priority ? 'selected' : ''}`}
+                        onClick={() => handleSelection('priority', priority)}
+                      >
+                        {priority}
+                      </div>
+                    ))}
+                  </div>
+
+                  <label htmlFor="taskEndTime">Date de fin</label>
+                  <input
+                    type="date"
+                    name="endTime"
+                    id="taskEndTime"
+                    value={taskData.endTime}
+                    onChange={handleChange}
+                  />
+                  <button type="submit">Créer la tâche</button>
                 </form>
+                {message && <p>{message}</p>}
               </>
             ) : (
-              <>
-                <h2>Modifier une tâche</h2>
-                <form>
-                  <label htmlFor="">Nom</label>
-                  <input type="text" name="taskName" id="taskName" />
-                  <label htmlFor="">Description</label>
-                  <input
-                    type="text"
-                    name="taskDescription"
-                    id="taskDescription"
-                  />
-                  <label htmlFor="">Catégorie</label>
-                  <input type="" name="taskCategory" id="taskCategory" />
-                  <label htmlFor="">Statut</label>
-                  <input type="" name="taskStatut" id="taskStatut" />
-                  <label htmlFor="">Date de fin</label>
-                  <input type="" name="taskEndTime" id="taskEndTime" />
-                  <button>Continuer</button>
-                </form>
-              </>
+              <>{/* Modal pour modifier la tâche */}</>
             )}
           </div>
         </div>

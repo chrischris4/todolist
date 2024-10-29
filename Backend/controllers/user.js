@@ -7,7 +7,6 @@ exports.createUser = async (req, res) => {
   try {
     const hash = await bcrypt.hash(req.body.password, 10);
 
-    // Créer un nouvel utilisateur avec l'image et les autres infos
     const newUser = new User({
       firstName: req.body.firstName,
       lastName: req.body.lastName,
@@ -83,14 +82,14 @@ const checkUsers = async () => {
 checkUsers();
 
 // (async () => {
-//     try {
-//         // Supprimez tous les user existants
-//         await User.deleteMany({});
-//         console.log('Tous les users existants ont été supprimés.');
-//     } catch (error) {
-//         console.error(
-//             'Erreur lors de la suppression des users au démarrage:',
-//             error
-//         );
-//     }
+//   try {
+//     // Supprimez tous les user existants
+//     await User.deleteMany({});
+//     console.log('Tous les users existants ont été supprimés.');
+//   } catch (error) {
+//     console.error(
+//       'Erreur lors de la suppression des users au démarrage:',
+//       error
+//     );
+//   }
 // })();

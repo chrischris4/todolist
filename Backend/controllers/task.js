@@ -25,6 +25,19 @@ exports.createTask = async (req, res) => {
   }
 };
 
+exports.getAllTasks = async (req, res) => {
+  try {
+    const tasks = await Task.find({});
+    res.status(200).json({
+      message: 'Liste des tâches récupérée avec succès',
+      tasks: tasks,
+    });
+  } catch (error) {
+    console.error('Erreur lors de la récupération des tâches:', error);
+    res.status(500).json({ error: 'Erreur serveur' });
+  }
+};
+
 // exports.deleteTask = async (req, res) => {
 //   const taskId = req.params.id;
 
