@@ -62,12 +62,25 @@ exports.getUserName = async (req, res) => {
     res.json({
       lastName: user.lastName,
       firstName: user.firstName,
+      userId: user._id,
     });
   } catch (error) {
     res.status(500).json({
       message: "Erreur lors de la récupération de l'utilisateur",
       error,
     });
+  }
+};
+
+exports.getAllUsers = async (req, res) => {
+  try {
+    const users = await User.find({}, 'firstName lastName');
+    res.status(200).json({ users });
+  } catch (error) {
+    console.error(error);
+    res
+      .status(500)
+      .json({ error: 'Erreur lors de la récupération des utilisateurs' });
   }
 };
 

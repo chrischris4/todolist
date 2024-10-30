@@ -1,20 +1,56 @@
 import '../styles/Task.css';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function Task({ task }) {
-  const { name, description, category, priority, endTime, creator } = task;
+  const navigate = useNavigate();
+
+  const openUpdateTaskPage = () => {
+    navigate(`/UpdateTask/${task._id}`);
+  };
+
+  const {
+    name,
+    description,
+    category,
+    priority,
+    endTime,
+    userId,
+    creationTime,
+    updateTime,
+  } = task;
+  const priorityClass = `priority-${priority.toLowerCase()}`;
 
   return (
     <div className="task">
       <div className="taskContent">
-        <h2>{name}</h2>
-        <p>{description}</p>
-        <h3 className="taskCategory">Catégorie : {category}</h3>
-        <h3 className="taskPriority">Priorité : {priority}</h3>
-        <div className="taskDate">
-          <p>Fin le : {new Date(endTime).toLocaleDateString()}</p>
+        <div className="taskTitle">
+          <div className={`taskPriority ${priorityClass}`}></div>
+          <h2>{name}</h2>
         </div>
-        <p className="taskCreator">Créé par : {creator}</p>
+        <p>{description}</p>
+        <h3 className="taskCategory">{category}</h3>
+        <div className="taskDates">
+          <div className="taskDate">
+            <p>Crée le :</p>
+            <p> {new Date(creationTime).toLocaleDateString()}</p>
+          </div>
+          <div className="taskDate middleTaskDate">
+            <p>Màj le : </p>
+            <p>{new Date(updateTime).toLocaleDateString()}</p>
+          </div>
+          <div className="taskDate">
+            <p>Fin le : </p>
+            <p>{new Date(endTime).toLocaleDateString()}</p>
+          </div>
+        </div>
+        <div className="taskCreator">
+          <p>Créé par :</p>
+          <p> {userId}</p>
+        </div>
+        <div onClick={openUpdateTaskPage} className="updateTaskIcon">
+          <span className="material-symbols-rounded editIcon">edit_square</span>
+        </div>
       </div>
     </div>
   );

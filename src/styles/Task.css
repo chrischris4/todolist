@@ -2,10 +2,11 @@
   display: flex;
   background-color: black;
   color: white;
-  border-radius: 20px;
+  border-radius: 10px;
   box-sizing: border-box;
   padding: 20px;
-  width: 40%;
+  width: 47.5%;
+  margin-bottom: 20px;
 }
 
 .taskContent {
@@ -19,27 +20,93 @@
   }
 }
 
+.taskTitle {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+}
+
+.taskPriority {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.priority-basse {
+  background-color: #76b184;
+}
+
+.priority-moyenne {
+  background-color: #f5dc92;
+}
+
+.priority-haute {
+  background-color: #d5818a;
+}
+
 .taskCategory {
   position: absolute;
+  border-left: 2px solid #c3e6cb;
+  border-bottom: 2px solid #c3e6cb;
+  border-radius: 0 0 0 10px;
+  padding: 10px 40px 10px 20px;
   margin: 0;
-  top: 0px;
-  right: 0px;
+  top: -20px;
+  right: -20px;
+  font-size: 16px;
+}
+
+.taskDates {
+  border-top: 1px solid;
+  display: flex;
+  color: #e1e1e1;
 }
 
 .taskDate {
-  border-top: 2px solid white;
-  padding-top: 10px;
+  margin: 20px 5px 0 5px;
   display: flex;
+  flex-direction: column;
 
   p {
+    font-size: 12px;
     margin: 0;
-    margin-right: 20px;
   }
+}
+
+.middleTaskDate {
+  padding: 0px 10px;
+  border-right: 1px solid;
+  border-left: 1px solid;
 }
 
 .taskCreator {
   position: absolute;
+  display: flex;
+  flex-direction: column;
   right: 0;
   bottom: 0;
   margin: 0;
+  font-size: 12px;
+  color: #e1e1e1;
+
+  p {
+    margin: 0;
+  }
+}
+
+.updateTaskIcon {
+  cursor: pointer;
+  position: absolute;
+  top: -30px;
+  right: -30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  color: #11151d;
+  background-color: #9798a7;
+  border: 4px solid #11151d;
 }

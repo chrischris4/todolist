@@ -1,0 +1,27 @@
+.nav {
+  width: 300px;
+  display: flex;
+  min-height: 100vh;
+  border-left: 2px solid #6e6e79;
+}
+
+.navContent {
+  box-sizing: border-box;
+  padding-top: 110px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+
+  button {
+    margin-bottom: 20px;
+    width: 90%;
+  }
+}
+
+.navLogout {
+  position: absolute;
+  bottom: 0;
+}

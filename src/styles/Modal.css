@@ -31,7 +31,7 @@
     padding-left: 10px;
     border: 2px solid;
     height: 35px;
-    border-radius: 10px;
+    border-radius: 5px;
     margin-bottom: 10px;
   }
 
@@ -98,8 +98,8 @@
   margin-bottom: 10px;
 }
 
-.taskPriority,
-.taskStatus {
+.taskPriorityOption,
+.taskStatusOption {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -112,8 +112,8 @@
   transition: all 0.2s ease-in-out;
 }
 
-.taskStatus:hover,
-.taskPriority:hover {
+.taskStatusOption:hover,
+.taskPriorityOption:hover {
   background-color: #b0b2c3;
 }
 

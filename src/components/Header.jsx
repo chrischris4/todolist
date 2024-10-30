@@ -1,10 +1,8 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import '../styles/Header.css';
 
 function Header({ firstName, lastName }) {
   const [userConnected, setUserConnected] = useState(false);
-  const navigate = useNavigate();
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -12,12 +10,6 @@ function Header({ firstName, lastName }) {
       setUserConnected(true);
     }
   }, []);
-
-  const handleLogout = () => {
-    localStorage.removeItem('token');
-    setUserConnected(false);
-    navigate('/');
-  };
 
   return (
     <div className="header">
@@ -29,8 +21,7 @@ function Header({ firstName, lastName }) {
         />
         {userConnected && (
           <div className="headerUser">
-            <h3>{`${firstName} ${lastName}`}</h3>
-            <button onClick={handleLogout}>Se déconnecter</button>
+            <h3>{`${firstName}`}</h3> <h3>{`${lastName}`}</h3>
           </div>
         )}
       </div>

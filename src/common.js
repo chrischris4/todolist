@@ -55,19 +55,35 @@ export async function getUserName() {
       return {
         firstName: response.data.firstName,
         lastName: response.data.lastName,
+        userId: response.data._id,
       };
     } else {
       return {
         error: true,
-        message: 'Erreur lors de la récupération du pseudo',
+        message: 'Erreur lors de la récupération du nom',
       };
     }
   } catch (error) {
-    console.error('Erreur lors de la récupération du pseudo:', error.message);
+    console.error('Erreur lors de la récupération du nom:', error.message);
     return {
       error: true,
       message: error.message,
     };
+  }
+}
+
+export async function getAllUsers() {
+  try {
+    const token = getFromLocalStorage('token');
+    const response = await axios.get(API_ROUTES.GET_ALL_USERS, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (err) {
+    console.error(err);
+    return { error: true, message: err.message };
   }
 }
 
@@ -107,7 +123,6 @@ export async function createTask(data) {
     return { error: true, message: err.message };
   }
 }
-
 export const getAllTask = async () => {
   try {
     const token = getFromLocalStorage('token');
@@ -119,21 +134,59 @@ export const getAllTask = async () => {
     });
 
     if (response.status === 200) {
-      return { events: response.data };
+      return { tasks: response.data.tasks };
     } else {
       return {
         error: true,
-        message: 'Erreur lors de la récupération des événements',
+        message: 'Erreur lors de la récupération des tâches',
       };
     }
   } catch (error) {
-    console.error(
-      'Erreur lors de la récupération des événements:',
-      error.message
-    );
+    console.error('Erreur lors de la récupération des tâches:', error.message);
     return {
       error: true,
       message: error.message,
     };
+  }
+};
+
+export const getTaskById = async (id) => {
+  try {
+    const response = await axios.get(`${API_ROUTES.GET_TASK_BY_ID}${id}`);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    return { error: 'Erreur lors de la récupération de la tâche' };
+  }
+};
+
+export const updateTask = async (taskId, taskData) => {
+  try {
+    const token = getFromLocalStorage('token');
+    const response = await axios.put(
+      `${API_ROUTES.UPDATE_TASK}${taskId}`,
+      taskData,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    if (response.status === 200) {
+      return {
+        success: true,
+        message: 'Tâche mise à jour avec succès',
+        task: response.data.task,
+      };
+    } else {
+      return {
+        error: true,
+        message: 'Erreur lors de la mise à jour de la tâche',
+      };
+    }
+  } catch (error) {
+    console.error('Erreur lors de la mise à jour de la tâche:', error.message);
+    return { error: true, message: error.message };
   }
 };

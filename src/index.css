@@ -5,6 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #9798a7;
 }
 
 code {
@@ -20,5 +21,32 @@ button {
   border-radius: 5px;
   font-size: 18px;
   height: fit-content;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+button:hover {
+  transform: translateY(-5%);
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+}
+
+select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  border: 2px solid black;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 16px;
+  height: 100px;
+  margin-bottom: 10px;
+}
+
+option {
   cursor: pointer;
 }

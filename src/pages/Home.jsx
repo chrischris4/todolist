@@ -1,8 +1,7 @@
 import Header from '../components/Header';
 import '../styles/Home.css';
 import '../styles/Modal.css';
-import React from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { createUser, loginUser } from '../common';
 
@@ -38,7 +37,23 @@ function Home() {
     if (modalType === 'signup') {
       const result = await createUser(formData);
       if (!result.error) {
-        navigate('/dashboard');
+        const loginResult = await loginUser({
+          email: formData.email,
+          password: formData.password,
+        });
+        if (!loginResult.error) {
+          navigate('/Dashboard');
+        } else {
+          console.error(
+            "Erreur lors de la connexion après l'inscription:",
+            loginResult.message
+          );
+        }
+      } else {
+        console.error(
+          "Erreur lors de la création de l'utilisateur:",
+          result.message
+        );
       }
     } else {
       const result = await loginUser({
@@ -46,7 +61,9 @@ function Home() {
         password: formData.password,
       });
       if (!result.error) {
-        navigate('/dashboard');
+        navigate('/Dashboard');
+      } else {
+        console.error('Erreur lors de la connexion:', result.message);
       }
     }
     closeModal();
@@ -75,6 +92,7 @@ function Home() {
                     id="lastName"
                     value={formData.lastName}
                     onChange={handleInputChange}
+                    required
                   />
                   <label htmlFor="firstName">Prénom</label>
                   <input
@@ -83,6 +101,7 @@ function Home() {
                     id="firstName"
                     value={formData.firstName}
                     onChange={handleInputChange}
+                    required
                   />
                   <label htmlFor="email">E-mail</label>
                   <input
@@ -91,6 +110,7 @@ function Home() {
                     id="email"
                     value={formData.email}
                     onChange={handleInputChange}
+                    required
                   />
                   <label htmlFor="password">Mot de passe</label>
                   <input
@@ -99,6 +119,7 @@ function Home() {
                     id="password"
                     value={formData.password}
                     onChange={handleInputChange}
+                    required
                   />
                   <button>Continuer</button>
                 </form>
@@ -114,6 +135,7 @@ function Home() {
                     id="email"
                     value={formData.email}
                     onChange={handleInputChange}
+                    required
                   />
                   <label htmlFor="password">Mot de passe</label>
                   <input
@@ -122,6 +144,7 @@ function Home() {
                     id="password"
                     value={formData.password}
                     onChange={handleInputChange}
+                    required
                   />
                   <button>Se connecter</button>
                 </form>
