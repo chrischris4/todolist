@@ -72,6 +72,21 @@ exports.getUserName = async (req, res) => {
   }
 };
 
+exports.getUserById = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const user = await User.findById(id).select('firstName lastName');
+    if (!user) {
+      return res.status(404).json({ message: 'Utilisateur non trouvé' });
+    }
+    res.status(200).json(user);
+  } catch (error) {
+    console.error("Erreur lors de la récupération de l'utilisateur:", error);
+    res.status(500).json({ message: 'Erreur serveur' });
+  }
+};
+
 exports.getAllUsers = async (req, res) => {
   try {
     const users = await User.find({}, 'firstName lastName');

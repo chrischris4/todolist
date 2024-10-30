@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { createTask, getAllUsers } from '../common';
+import { createTask, getAllUsers, getUserName } from '../common';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import '../styles/CreateTask.css';
-import { getUserName } from '../common';
 import Nav from '../components/Nav';
 
 function CreateTask() {
@@ -35,7 +34,6 @@ function CreateTask() {
   const [users, setUsers] = useState([]);
   const navigate = useNavigate();
 
-  /////////////////////////GET USER FOR FORM///////////////////////////////////
   useEffect(() => {
     const fetchUsers = async () => {
       const response = await getAllUsers();

@@ -1,9 +1,12 @@
 import '../styles/Task.css';
 import React from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { getUserById } from '../common';
 
 function Task({ task }) {
   const navigate = useNavigate();
+  const [creator, setCreator] = useState({ firstName: '', lastName: '' });
 
   const openUpdateTaskPage = () => {
     navigate(`/UpdateTask/${task._id}`);
@@ -20,6 +23,25 @@ function Task({ task }) {
     updateTime,
   } = task;
   const priorityClass = `priority-${priority.toLowerCase()}`;
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const userData = await getUserById(userId);
+      if (!userData.error) {
+        setCreator({
+          firstName: userData.firstName,
+          lastName: userData.lastName,
+        });
+      } else {
+        console.error(
+          "Erreur lors de la récupération de l'utilisateur:",
+          userData.message
+        );
+      }
+    };
+
+    fetchUser();
+  }, [userId]);
 
   return (
     <div className="task">
@@ -46,7 +68,9 @@ function Task({ task }) {
         </div>
         <div className="taskCreator">
           <p>Créé par :</p>
-          <p> {userId}</p>
+          <p>
+            {creator.firstName} {creator.lastName}
+          </p>{' '}
         </div>
         <div onClick={openUpdateTaskPage} className="updateTaskIcon">
           <span className="material-symbols-rounded editIcon">edit_square</span>

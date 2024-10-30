@@ -8,4 +8,5 @@ export const API_ROUTES = {
   SIGN_IN: `${API_URL}/api/users/login`,
   USER_NAME: `${API_URL}/api/users/profile`,
   GET_ALL_USERS: `${API_URL}/api/users/users`,
+  USER: `${API_URL}/api/users`,
 };

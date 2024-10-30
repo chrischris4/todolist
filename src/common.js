@@ -72,6 +72,19 @@ export async function getUserName() {
   }
 }
 
+export const getUserById = async (userId) => {
+  try {
+    const response = await axios.get(`${API_ROUTES.USER}/${userId}`);
+    return response.data;
+  } catch (error) {
+    console.error(
+      "Erreur lors de la récupération de l'utilisateur:",
+      error.message
+    );
+    return { error: true, message: error.message };
+  }
+};
+
 export async function getAllUsers() {
   try {
     const token = getFromLocalStorage('token');

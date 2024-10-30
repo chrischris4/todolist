@@ -11,4 +11,6 @@ router.get('/profile', auth, userController.getUserName);
 
 router.get('/users', userController.getAllUsers);
 
+router.get('/:id', userController.getUserById);
+
 module.exports = router;
